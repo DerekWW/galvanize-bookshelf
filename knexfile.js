@@ -3,7 +3,8 @@
 module.exports = {
   development: {
      client: 'pg',
-     onnection: 'postgres://localhost/bookshelf_dev'},
+     connection: 'postgres://localhost/bookshelf_dev'
+   },
 
   test: {
        client: 'pg',
