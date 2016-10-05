@@ -43,7 +43,13 @@ router.get('/books/:id', (req, res, next) => {
 });
 
 router.post('/books', (req, res, next) => {
-  const { title, author, genre, description, coverUrl } = req.body;
+  const {
+    title,
+    author,
+    genre,
+    description,
+    coverUrl
+  } = req.body;
 
   if (!title || !title.trim()) {
     return next(boom.create(400, 'Title must not be blank'));
@@ -65,7 +71,13 @@ router.post('/books', (req, res, next) => {
     return next(boom.create(400, 'Cover URL must not be blank'));
   }
 
-  const insertBook = { title, author, genre, description, coverUrl };
+  const insertBook = {
+    title,
+    author,
+    genre,
+    description,
+    coverUrl
+  };
 
   knex('books')
     .insert(decamelizeKeys(insertBook), '*')
@@ -124,6 +136,7 @@ router.patch('/books/:id', (req, res, next) => {
     })
     .then((rows) => {
       const book = camelizeKeys(rows[0]);
+
       res.send(book);
     })
     .catch((err) => {
