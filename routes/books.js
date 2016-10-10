@@ -22,7 +22,7 @@ router.get('/books', (_req, res, next) => {
 });
 
 router.get('/books/:id', (req, res, next) => {
-  const id =Number.parseInt(req.params.id);
+  const id = Number.parseInt(req.params.id);
 
   if (Number.isNaN(id)){
     return next()
@@ -94,7 +94,7 @@ router.post('/books', (req, res, next) => {
 });
 
 router.patch('/books/:id', (req, res, next) => {
-  const id =Number.parseInt(req.params.id);
+  const id = Number.parseInt(req.params.id);
 
   if (Number.isNaN(id)){
     return next()
