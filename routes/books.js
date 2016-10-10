@@ -3,10 +3,7 @@
 
 const express = require('express');
 const boom = require('boom');
-const {
-  camelizeKeys,
-  decamelizeKeys
-} = require('humps');
+const { camelizeKeys, decamelizeKeys } = require('humps');
 const knex = require('../knex');
 
 const router = express.Router();
@@ -25,8 +22,13 @@ router.get('/books', (_req, res, next) => {
 });
 
 router.get('/books/:id', (req, res, next) => {
+  const id =Number.parseInt(req.params.id);
+
+  if (Number.isNaN(id)){
+    return next()
+  }
   knex('books')
-    .where('id', req.params.id)
+    .where('id', id)
     .first()
     .then((row) => {
       if (!row) {
@@ -92,8 +94,14 @@ router.post('/books', (req, res, next) => {
 });
 
 router.patch('/books/:id', (req, res, next) => {
+  const id =Number.parseInt(req.params.id);
+
+  if (Number.isNaN(id)){
+    return next()
+  }
+
   knex('books')
-    .where('id', req.params.id)
+    .where('id', id)
     .first()
     .then((book) => {
       if (!book) {
@@ -146,9 +154,14 @@ router.patch('/books/:id', (req, res, next) => {
 
 router.delete('/books/:id', (req, res, next) => {
   let book;
+  const id =Number.parseInt(req.params.id);
+
+  if (Number.isNaN(id)){
+    return next()
+  }
 
   knex('books')
-    .where('id', req.params.id)
+    .where('id', id)
     .first()
     .then((row) => {
       if (!row) {
@@ -159,7 +172,7 @@ router.delete('/books/:id', (req, res, next) => {
 
       return knex('books')
         .del()
-        .where('id', req.params.id);
+        .where('id', id);
     })
     .then(() => {
       delete book.id;
