@@ -1,8 +1,6 @@
 'use strict';
 // eslint-disable-next-line new-cap
 
-const ev = require('express-validation');
-const validations = require('../validations/books');
 const express = require('express');
 const boom = require('boom');
 const { camelizeKeys, decamelizeKeys } = require('humps');
@@ -46,7 +44,7 @@ router.get('/books/:id', (req, res, next) => {
     });
 });
 
-router.post('/books', ev(validations.post), (req, res, next) => {
+router.post('/books',  (req, res, next) => {
   const {
     title,
     author,
@@ -55,25 +53,25 @@ router.post('/books', ev(validations.post), (req, res, next) => {
     coverUrl
   } = req.body;
 
-  // if (!title || !title.trim()) {
-  //   return next(boom.create(400, 'Title must not be blank'));
-  // }
-  //
-  // if (!author || !author.trim()) {
-  //   return next(boom.create(400, 'Author must not be blank'));
-  // }
-  //
-  // if (!genre || !genre.trim()) {
-  //   return next(boom.create(400, 'Genre must not be blank'));
-  // }
-  //
-  // if (!description || !description.trim()) {
-  //   return next(boom.create(400, 'Description must not be blank'));
-  // }
-  //
-  // if (!coverUrl || !coverUrl.trim()) {
-  //   return next(boom.create(400, 'Cover URL must not be blank'));
-  // }
+  if (!title || !title.trim()) {
+    return next(boom.create(400, 'Title must not be blank'));
+  }
+
+  if (!author || !author.trim()) {
+    return next(boom.create(400, 'Author must not be blank'));
+  }
+
+  if (!genre || !genre.trim()) {
+    return next(boom.create(400, 'Genre must not be blank'));
+  }
+
+  if (!description || !description.trim()) {
+    return next(boom.create(400, 'Description must not be blank'));
+  }
+
+  if (!coverUrl || !coverUrl.trim()) {
+    return next(boom.create(400, 'Cover URL must not be blank'));
+  }
 
   const insertBook = {
     title,
